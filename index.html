@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            height: 100%;
+        }
+        div {
+            width: 33.33%;
+            background-size: contain;
+            cursor: pointer;
+        }
+        div:hover {
+            box-shadow: inset #000 0 0 10vh;
+        }
+        nav div#rock {
+            background-image: url(https://www.thesmackdownhotel.com/images/wrestling/wrestlers/full-body/the-rock.png);
+        }
+        nav div#paper {
+            background-image: url(https://collegewares.com/cdn/shop/products/dundermifflinflag2.png?v=1600225500);
+        }
+        nav div#scissors {
+            background-image: url(https://replaymytoys.com/cdn/shop/products/Untitleddesign-2023-02-13T153607.299.png?v=1676324147);
+        }
+        nav div:target {
+            filter: drop-shadow(red 0 0 1vh);
+        }
+        div#shoe {
+            background-image: url(https://d1fufvy4xao6k9.cloudfront.net/images/landings/339/brown-captoe-shoes.png);
+            background-size: 20vw;
+            height: 10vh;
+            width: 100%;
+            bottom: -10vh;
+            animation: shoe 1s linear infinite;
+            position: fixed;
+            transition: 0.2s;
+        }
+        div#shoe[active=true] {
+            bottom: 0;
+        }
+        @keyframes shoe {
+            from {
+                background-position: 0%;
+            }
+            to {
+                background-position: 40vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div id="rock"></div>
+        <div id="paper"></div>
+        <div id="scissors"></div>
+    </nav>
+    <div id="shoe"></div>
+    <script>
+let shoe = document.getElementById("shoe");
+location.hash = "";
+
+for (let choice of document.querySelectorAll("nav div")) {
+    choice.addEventListener("click", () => {
+        location.hash = choice.getAttribute("id");
+        shoe.setAttribute("active", true);
+    });
+}
+
+function getComputerChoice() {
+    return ["rock","paper","scissor"][Math.floor(Math.random() * 3)];
+}
+
+function getHumanChoice() {
+    return location.hash;
+}
+
+function playRound(humanChoice, computerChoice) {
+  // your code here!
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
+
+    </script>
+</body>
+</html>
