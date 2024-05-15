@@ -117,7 +117,7 @@
     </style>
 </head>
 <body>
-    <div id="clickprevent"></div>
+    <div id="clickprevent" title="nuh uh"></div>
     <nav>
         <div id="rock" title="ROCK"></div>
         <div id="paper" title="PAPER"></div>
@@ -127,52 +127,78 @@
     <div id="result"></div>
     <div id="text">PLAYER CHOOSES...</div>
     <script>
+// get stuff
 let shoe = document.getElementById("shoe");
 let resultDiv = document.getElementById("result");
 let textDisplay = document.getElementById("text");
 let clickPrevent = document.getElementById("clickprevent");
 
+// very important constants that are vital to the game's integrity
 const CHOICES = ["rock","paper","scissors"];
 const TRANSLATIONS = {"rock": "dwyane johnson", "paper": "dunder mifflin", "scissors": "edward scissorhands"}
 const VERBS = ["deletes", "sludges", "eats", "incinerates", "casts fireball at", "curses", "1984s", "fires finger guns at", "farts in the general direction of", "is clearly better than"];
 
+// reset the player's choice (maybe)
 location.hash = "";
+// or not
+//if(location.hash) shoe.setAttribute("active", true);
 
+/* make all three choices clickable */
 for (let choice of document.querySelectorAll("nav div")) {
+    // on click
     choice.addEventListener("click", () => {
-        location.hash = choice.getAttribute("id");
+        // set the url hash to the id of the choice's id
+        let iChooseYou = choice.getAttribute("id");
+        location.hash = iChooseYou;
         shoe.setAttribute("active", true);
+        console.log(`weird choice but ok (${iChooseYou})`)
     });
 }
 
+/* display a message onscreen */
 function message(text, time) {
+    console.log("message: " + text);
     textDisplay.textContent = text;
     textDisplay.setAttribute("active", true);
     window.setTimeout(()=>{
         textDisplay.removeAttribute("active");
-    }, time)
+    }, time);
 }
 
-// actual game functions below
-
+/* select a random choice from a hard coded list 
+literally thats it */
 function getComputerChoice() {
-    return ["rock","paper","scissors"][Math.floor(Math.random() * 3)];
+    return CHOICES[Math.floor(Math.random() * 3)];
 }
 
+/* get the player's selection (stored in the hash of the website url) (bad practice but its funny) */
 function getHumanChoice() {
     return location.hash.replace("#", "");
 }
 
+/* determine the winner
+convert choices to numbers 0, 1, or 2
+if both numbers are the same, draw
+if ((number + 1) modulo 3) is not equal to other number, win
+otherwise, lose
+*/
 function playRound(humanChoice, computerChoice) {
-    // this function is genius idk how i thought up of this
     let a = CHOICES.indexOf(humanChoice);
     let b = CHOICES.indexOf(computerChoice);
+    console.log(`human chooses ${a}, computer chooses ${b}`);
     if (a === b) return "draw";
     else if ((a + 1) % 3 !== b) return "win";
     else return "loss";
 }
 
+/* um so basically this one goes like this:
+get choices from both players
+play the round to find the result
+display the result
+*/
 function playGame() {
+    console.log("[smash bros announcer voice] ROUND START!!!");
+    // get choices
     clickPrevent.style.display = "block";
     const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice();
@@ -180,17 +206,17 @@ function playGame() {
     message("COMPUTER CHOOSES " + TRANSLATIONS[computerSelection].toUpperCase(), 1500);
 
     window.setTimeout(()=>{
+        // play round
         let result = playRound(humanSelection, computerSelection);
 
+        // display result
         let verb = VERBS[Math.floor(Math.random() * VERBS.length)];
         message({
             "win": `${TRANSLATIONS[humanSelection]} ${verb} ${TRANSLATIONS[computerSelection]}`,
             "loss": `${TRANSLATIONS[computerSelection]} ${verb} ${TRANSLATIONS[humanSelection]}`,
             "draw": `nothing happens`,
         }[result].toUpperCase(), 2000);
-
         resultDiv.setAttribute("img", result);
-
         resultDiv.animate([
             {transform: "scale(0%) rotate(0deg)"},
             {transform: "scale(100%)  rotate(360deg)"},
@@ -200,7 +226,9 @@ function playGame() {
             easing: "cubic-bezier(0,1,1,0)"
         });
         
+        // reset game for next round
         window.setTimeout(()=>{
+            console.log("new game");
             clickPrevent.style.display = "none";
             location.hash = "";
             shoe.removeAttribute("active");
@@ -208,8 +236,17 @@ function playGame() {
     }, 2000);
 }
 
+// make the submit button run the game logic (VERY IMPORTANT!!)
 shoe.addEventListener("click", playGame);
 
+    </script>
+    <script>
+console.log("testing that functions function correctly (everything should be true)");
+console.log(playRound("rock", "scissors") === "win");
+console.log(playRound("paper", "paper") === "draw");
+console.log(playRound("rock", "paper") === "loss");
+console.log(CHOICES.includes(getComputerChoice()));
+console.log("ok done bye\n\n")
     </script>
 </body>
 </html>
