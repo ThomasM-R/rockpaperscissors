@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
     <style>
+        @keyframes shoe {
+            from {background-position: 0%;}
+            to {background-position: 40vh;}
+        }
+        @keyframes rainbow {
+            0% {--rainbow: #f00}
+            16.67% {--rainbow: #ff0}
+            33.33% {--rainbow: #0f0}
+            50% {--rainbow: #0ff}
+            66.67% {--rainbow: #00f}
+            83.33% {--rainbow: #f0f}
+            100% {--rainbow: #f00}
+        }
+        * {
+            animation: rainbow 1s linear infinite;
+        }
         html, body {
+            background-color: gray;
             height: 100%;
             margin: 0;
         }
@@ -13,58 +30,110 @@
             display: flex;
             height: 100%;
         }
-        div {
+        nav div {
             width: 33.33%;
             background-size: contain;
             cursor: pointer;
         }
-        div:hover {
+        nav div:hover {
             box-shadow: inset #000 0 0 10vh;
         }
         nav div#rock {
-            background-image: url(https://www.thesmackdownhotel.com/images/wrestling/wrestlers/full-body/the-rock.png);
+            background-size: cover;
+            background-color: #bf8080;
+            background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/98cd130a-7be3-494e-8506-4b779c1bd037/dfmgh0w-06b4b906-d6ac-42a4-84e9-e9f11eec89e2.png/v1/fill/w_591,h_1352/wwe_the_rock_2023_by_wwerenders2020_dfmgh0w-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjAwMCIsInBhdGgiOiJcL2ZcLzk4Y2QxMzBhLTdiZTMtNDk0ZS04NTA2LTRiNzc5YzFiZDAzN1wvZGZtZ2gwdy0wNmI0YjkwNi1kNmFjLTQyYTQtODRlOS1lOWYxMWVlYzg5ZTIucG5nIiwid2lkdGgiOiI8PTg3NSJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.ehWQ5Uok_SfjU4Di2DubpRDVmzH1_32f9xInJdkrGYc);
         }
         nav div#paper {
+            background-color: #80bf80;
             background-image: url(https://collegewares.com/cdn/shop/products/dundermifflinflag2.png?v=1600225500);
         }
         nav div#scissors {
-            background-image: url(https://replaymytoys.com/cdn/shop/products/Untitleddesign-2023-02-13T153607.299.png?v=1676324147);
+            background-color: #8080bf;
+            background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2c0c2b2a-9a9d-4f44-8e3d-73b5eb02d274/d5kcb27-9b5079b4-2d99-44d2-9c75-334c0945c2dc.png/v1/fill/w_400,h_623/20121106_edward_scissorhands_by_amoykid_d5kcb27-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJjMGMyYjJhLTlhOWQtNGY0NC04ZTNkLTczYjVlYjAyZDI3NFwvZDVrY2IyNy05YjUwNzliNC0yZDk5LTQ0ZDItOWM3NS0zMzRjMDk0NWMyZGMucG5nIiwiaGVpZ2h0IjoiPD02MjMiLCJ3aWR0aCI6Ijw9NDAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cLzJjMGMyYjJhLTlhOWQtNGY0NC04ZTNkLTczYjVlYjAyZDI3NFwvYW1veWtpZC00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ.mdwHWt_PibNEtA2SXN0Z9_l5UKmTUBG0-6N9_AAidD0);
         }
         nav div:target {
-            filter: drop-shadow(red 0 0 1vh);
+            filter: drop-shadow(var(--rainbow) 0 0 1vh);
+            box-shadow: inset var(--rainbow) 0 0 10vh;
         }
         div#shoe {
             background-image: url(https://d1fufvy4xao6k9.cloudfront.net/images/landings/339/brown-captoe-shoes.png);
-            background-size: 20vw;
-            height: 10vh;
+            background-size: 40vh;
+            height: 20vh;
             width: 100%;
-            bottom: -10vh;
+            bottom: -20vh;
             animation: shoe 1s linear infinite;
             position: fixed;
-            transition: 0.2s;
+            transition: bottom 0.2s;
+        }
+        div#shoe:hover {
+            filter: brightness(150%) drop-shadow(var(--rainbow) 0 0 1vh);
         }
         div#shoe[active=true] {
             bottom: 0;
         }
-        @keyframes shoe {
-            from {
-                background-position: 0%;
-            }
-            to {
-                background-position: 40vw;
-            }
+        div#result {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform: scale(0%);
+        }
+        div#result[img=win] {
+            background-image: url(https://www.biworldwide.ca/globalassets/how-do-you-win-with-incentives.jpg);
+        }
+        div#result[img=loss] {
+            background-image: url(https://upload.wikimedia.org/wikipedia/en/d/d0/Loss_comic.jpg);
+        }
+        div#result[img=draw] {
+            background-image: url(https://upload.wikimedia.org/wikipedia/commons/7/7b/Aofhfeworewour2.jpg);
+        }
+        div#text {
+            position: fixed;
+            width: 100%;
+            white-space: nowrap;
+            height: 5vh;
+            top: -5vh;
+            text-align: center;
+            font-size: 5vh;
+            transition: top 0.2s;
+            color: white;
+            background-color: #000;
+        }
+        div#text[active] {
+            top: 0;
+        }
+        div#clickprevent {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
+    <div id="clickprevent"></div>
     <nav>
-        <div id="rock"></div>
-        <div id="paper"></div>
-        <div id="scissors"></div>
+        <div id="rock" title="ROCK"></div>
+        <div id="paper" title="PAPER"></div>
+        <div id="scissors" title="SCISSORS"></div>
     </nav>
-    <div id="shoe"></div>
+    <div id="shoe" title="SHOE!!"></div>
+    <div id="result"></div>
+    <div id="text">PLAYER CHOOSES...</div>
     <script>
 let shoe = document.getElementById("shoe");
+let resultDiv = document.getElementById("result");
+let textDisplay = document.getElementById("text");
+let clickPrevent = document.getElementById("clickprevent");
+
+const CHOICES = ["rock","paper","scissors"];
+const TRANSLATIONS = {"rock": "dwyane johnson", "paper": "dunder mifflin", "scissors": "edward scissorhands"}
+const VERBS = ["deletes", "sludges", "eats", "incinerates", "casts fireball at", "curses", "1984s", "fires finger guns at", "farts in the general direction of", "is clearly better than"];
+
 location.hash = "";
 
 for (let choice of document.querySelectorAll("nav div")) {
@@ -74,22 +143,70 @@ for (let choice of document.querySelectorAll("nav div")) {
     });
 }
 
+function message(text, time) {
+    textDisplay.textContent = text;
+    textDisplay.setAttribute("active", true);
+    window.setTimeout(()=>{
+        textDisplay.removeAttribute("active");
+    }, time)
+}
+
+// actual game functions below
+
 function getComputerChoice() {
-    return ["rock","paper","scissor"][Math.floor(Math.random() * 3)];
+    return ["rock","paper","scissors"][Math.floor(Math.random() * 3)];
 }
 
 function getHumanChoice() {
-    return location.hash;
+    return location.hash.replace("#", "");
 }
 
 function playRound(humanChoice, computerChoice) {
-  // your code here!
+    // this function is genius idk how i thought up of this
+    let a = CHOICES.indexOf(humanChoice);
+    let b = CHOICES.indexOf(computerChoice);
+    if (a === b) return "draw";
+    else if ((a + 1) % 3 !== b) return "win";
+    else return "loss";
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    clickPrevent.style.display = "block";
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+ 
+    message("COMPUTER CHOOSES " + TRANSLATIONS[computerSelection].toUpperCase(), 1500);
 
-playRound(humanSelection, computerSelection);
+    window.setTimeout(()=>{
+        let result = playRound(humanSelection, computerSelection);
+
+        let verb = VERBS[Math.floor(Math.random() * VERBS.length)];
+        message({
+            "win": `${TRANSLATIONS[humanSelection]} ${verb} ${TRANSLATIONS[computerSelection]}`,
+            "loss": `${TRANSLATIONS[computerSelection]} ${verb} ${TRANSLATIONS[humanSelection]}`,
+            "draw": `nothing happens`,
+        }[result].toUpperCase(), 2000);
+
+        resultDiv.setAttribute("img", result);
+
+        resultDiv.animate([
+            {transform: "scale(0%) rotate(0deg)"},
+            {transform: "scale(100%)  rotate(360deg)"},
+            {transform: "scale(0%)  rotate(720deg)"}
+        ], {
+            duration: 2000,
+            easing: "cubic-bezier(0,1,1,0)"
+        });
+        
+        window.setTimeout(()=>{
+            clickPrevent.style.display = "none";
+            location.hash = "";
+            shoe.removeAttribute("active");
+        }, 1000);
+    }, 2000);
+}
+
+shoe.addEventListener("click", playGame);
 
     </script>
 </body>
